@@ -53,4 +53,4 @@ type Chainable<T = {}> = {
   get: () => T;
 };
 
-// ı did not solve that :(
+// ı could not solve that :(
