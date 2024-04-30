@@ -1,0 +1,27 @@
+// ============= Test Cases =============
+import type { Equal, Expect } from "../.typeChallenges/test-utils";
+
+type cases = [
+  Expect<Equal<StartsWith<"abc", "ac">, false>>,
+  Expect<Equal<StartsWith<"abc", "ab">, true>>,
+  Expect<Equal<StartsWith<"abc", "abc">, true>>,
+  Expect<Equal<StartsWith<"abc", "abcd">, false>>,
+  Expect<Equal<StartsWith<"abc", "">, true>>,
+  Expect<Equal<StartsWith<"abc", " ">, false>>,
+  Expect<Equal<StartsWith<"", "">, true>>
+];
+
+// ============= Your Code Here =============
+type StartsWith<T extends string, U extends string> = T extends U
+  ? true
+  : T extends `${infer L}${infer R}`
+  ? U extends `${infer A}${infer B}`
+    ? L extends A
+      ? StartsWith<R, B>
+      : U["length"] extends 0
+      ? true
+      : false
+    : true
+  : U["length"] | T["length"] extends 0
+  ? true
+  : false;
